@@ -13,13 +13,7 @@ import java.util.Collections;
 public class Principal {
     
     static int NUMEXECUCOES=10;
-    //vetores como atributos da classe
-    int[] vetA, vetB, vetR;
-    
-    /**
-     */
-    
-	
+    //vetores como atributos da classe	
     /**
      * Retorna o número de instruções conforme o polinômio da complexidade
      * do método "somaVetores"
@@ -33,7 +27,7 @@ public class Principal {
             valor = (7*(tamanho*tamanho)) + (9*(tamanho )) + 3;
             return valor ;
         }
-        else if(escolha.equals("seleção")){
+        else if(escolha.equals("selecao")){
             valor = (2*(tamanho*tamanho))+ (8*tamanho) + 2 ;
             return valor;
         }
@@ -53,10 +47,7 @@ public class Principal {
     }
     
     public static void calcularComplexidade(String escolha){
-        
-        // TODO code application logic here
         Ordenacao ord = new Ordenacao();
-        
         
         ArrayList<Long> listaMediaTempo = new ArrayList();
         ArrayList<Long> listanumInstrucoes = new ArrayList();
@@ -88,10 +79,19 @@ public class Principal {
                 long inicio = System.nanoTime();
                 if(escolha.equals("bolha")){
                     ord.bolha(lista);
-                }              
+                }if(escolha.equals("seleção")){
+                    ord.selecao(lista);
+                }  if(escolha.equals("pente")){
+                    ord.pente(lista);
+                }  if(escolha.equals("agitacao")){
+                    ord.agitacao(lista);
+                }if(escolha.equals("shell")){
+                    ord.shell(lista);
+                }                
                 long fim = System.nanoTime();
                 long tempoExec = fim -inicio;
                 temposExecucao[exec] = tempoExec;
+                Collections.shuffle(lista);
             }
 
             memoriaUtilizada = memoriaUsada - memoriaLivre;                 
@@ -109,27 +109,19 @@ public class Principal {
             memoriaUsada = 0;
             memoriaLivre = 0;
         }
-        
+        System.out.println("---------------------------------------");
         System.out.println("lista media do tempo do "+escolha);
-        System.out.print("[");
         for (int i = 0; i < listaMediaTempo.size(); i++) {
-            System.out.print(""+listaMediaTempo.get(i)+",");
+            System.out.println(""+listaMediaTempo.get(i));
         }
-        System.out.println("]");
-        
         System.out.println("lista numero instrucoes do "+escolha);
-        System.out.print("[");
         for (int i = 0; i < listanumInstrucoes.size(); i++) {
-            System.out.print(""+listanumInstrucoes.get(i)+",");
+            System.out.println(""+listanumInstrucoes.get(i));
         }
-        System.out.println("]");
-        
         System.out.println("lista memoria utilizada do"+escolha);
-        System.out.print("[");
         for (int i = 0; i < listamemoriaUtilizada.size(); i++) {
-            System.out.print(""+listamemoriaUtilizada.get(i)+",");
+            System.out.println(""+listamemoriaUtilizada.get(i));
         }
-        System.out.print("]");
         System.out.println("---------------------------------------");
     }
 
@@ -137,10 +129,10 @@ public class Principal {
         
         
         calcularComplexidade("bolha");
-        //calcularComplexidade("bolha");
-        //calcularComplexidade("bolha");
-        //calcularComplexidade("bolha");
-        //calcularComplexidade("bolha");
+        calcularComplexidade("selecao");
+        calcularComplexidade("pente");
+        calcularComplexidade("shell");
+        calcularComplexidade("agitacao");
 
     }
     
